@@ -1,0 +1,52 @@
+add_fuel:
+  fields:
+    device_id:
+      required: true
+      selector:
+        device:
+          integration: ododash
+    odometer:
+      required: true
+      selector:
+        number:
+          min: 0
+          max: 9999999
+          step: any
+          mode: box
+    volume:
+      required: true
+      selector:
+        number:
+          min: 0
+          max: 10000
+          step: any
+          mode: box
+    price_per_unit:
+      required: true
+      selector:
+        number:
+          min: 0
+          max: 100000
+          step: any
+          mode: box
+    total_cost:
+      required: false
+      selector:
+        number:
+          min: 0
+          max: 10000000
+          step: any
+          mode: box
+    date:
+      required: false
+      selector:
+        date:
+    is_full_tank:
+      required: false
+      default: true
+      selector:
+        boolean:
+    notes:
+      required: false
+      selector:
+        text:

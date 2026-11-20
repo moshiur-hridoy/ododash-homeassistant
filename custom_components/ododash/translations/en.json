@@ -1,0 +1,95 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to OdoDash",
+        "description": "Paste the server address and Home Assistant key from OdoDash: Settings → Integrations → Home Assistant.",
+        "data": {
+          "url": "Server address",
+          "api_key": "Home Assistant key",
+          "verify_ssl": "Verify SSL certificate"
+        },
+        "data_description": {
+          "url": "The address Home Assistant can reach OdoDash on, for example http://192.168.1.10:5050",
+          "api_key": "Starts with odoha_. Older account API keys (odo_) also work.",
+          "verify_ssl": "Turn off only for a self-signed certificate."
+        }
+      },
+      "reauth_confirm": {
+        "title": "New OdoDash key needed",
+        "description": "OdoDash at {url} no longer accepts the saved key. Create a new Home Assistant key in OdoDash and paste it here.",
+        "data": {
+          "api_key": "Home Assistant key"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot reach OdoDash at that address.",
+      "invalid_auth": "OdoDash rejected the key. Regenerate it in OdoDash and try again.",
+      "invalid_url": "That is not a valid address.",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "already_configured": "This OdoDash account is already set up.",
+      "reauth_successful": "The new key works.",
+      "wrong_account": "That key belongs to a different OdoDash account."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "OdoDash options",
+        "data": {
+          "scan_interval": "Update interval (minutes)"
+        },
+        "data_description": {
+          "scan_interval": "OdoDash data only changes when you log something, so 15 minutes is plenty. Minimum 5."
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "maintenance_due": { "name": "Maintenance due" },
+      "document_expiring": { "name": "Document expiring" },
+      "reminder_due": { "name": "Reminder due" },
+      "online": { "name": "Online" }
+    },
+    "sensor": {
+      "odometer": { "name": "Odometer" },
+      "avg_consumption": { "name": "Average consumption" },
+      "total_cost": { "name": "Total cost" },
+      "fuel_cost": { "name": "Fuel cost" },
+      "expenses": { "name": "Expenses" },
+      "cost_30d": { "name": "Cost last 30 days" },
+      "last_fill": { "name": "Last fill" },
+      "last_fill_volume": { "name": "Last fill volume" },
+      "last_charge_energy": { "name": "Last charge energy" },
+      "last_charge_soc": { "name": "Last charge level" },
+      "alerts": { "name": "Alerts" },
+      "total_alerts": { "name": "Total alerts" }
+    }
+  },
+  "exceptions": {
+    "unknown_device": { "message": "Device not found." },
+    "not_a_vehicle": { "message": "Pick an OdoDash vehicle, not the OdoDash account device." },
+    "not_loaded": { "message": "That vehicle's OdoDash connection is not loaded." },
+    "add_fuel_failed": { "message": "OdoDash did not save the fill-up: {error}" }
+  },
+  "services": {
+    "add_fuel": {
+      "name": "Add fuel",
+      "description": "Logs a fill-up in OdoDash.",
+      "fields": {
+        "device_id": { "name": "Vehicle", "description": "The OdoDash vehicle to log against." },
+        "odometer": { "name": "Odometer", "description": "Odometer reading at the fill-up." },
+        "volume": { "name": "Volume", "description": "Fuel added, in your OdoDash volume unit." },
+        "price_per_unit": { "name": "Price per unit", "description": "Price per litre or gallon." },
+        "total_cost": { "name": "Total cost", "description": "Leave empty to use volume × price per unit." },
+        "date": { "name": "Date", "description": "Defaults to today." },
+        "is_full_tank": { "name": "Full tank", "description": "Whether the tank was filled up." },
+        "notes": { "name": "Notes", "description": "Optional note saved with the fill-up." }
+      }
+    }
+  }
+}
